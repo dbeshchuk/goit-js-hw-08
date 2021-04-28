@@ -10,7 +10,7 @@ const galleryModalClose = document.querySelector('[data-action="close-lightbox"]
 // Создание галереи 
 
 galleryUl.innerHTML = gallery
-  .map(({ original, preview, alt }) => { 
+  .map(({ original, preview, description }) => { 
     return`
     <li class="gallery__item">
     
@@ -22,7 +22,7 @@ galleryUl.innerHTML = gallery
       class="gallery__image"
       src="${preview}"
       data-source="${original}"
-      alt="${alt}"
+      alt="${description}"
     />
     </a>
   </li>
@@ -37,14 +37,15 @@ function setModalPicture(event) {
   };
   
   event.preventDefault();
-  galleryModalContent.setAttribute('src', `${event.target.dataset.source}`);
-  galleryModalContent.setAttribute('alt', `${event.target.getAttribute('alt')}`);
+  galleryModalContent.setAttribute('src', event.target.dataset.source);
+  galleryModalContent.setAttribute('alt', event.target.getAttribute('alt'));
   galleryModal.classList.add('is-open');
 };
 
 function modalClose() {
   galleryModal.classList.remove('is-open');
   galleryModalContent.setAttribute('src', '');
+  galleryModalContent.setAttribute('alt', '');
 };
 
 galleryUl.addEventListener('click', setModalPicture);
